@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Getlist Subject</title>
+</head>
+<style>
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #dddddd;
+    }
+</style>
+<body>
+<table>
+    <tr>
+        <th>Sid : </th>
+        <th>subject name : </th>
+    </tr>
+    <tr th:each="pro : ${list}">
+        <td th:text="${pro.SjId}"></td>
+        <td th:text="${pro.SjName}"></td>
+    </tr>
+
+</table>
+<a href="http://localhost:8080/subject/create">Tạo mới</a>
+</body>
+</html>

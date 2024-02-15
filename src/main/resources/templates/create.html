@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>create</title>
@@ -8,12 +7,16 @@
 <body>
 <h1>Create</h1>
 
-<form action="http://localhost:8080/student/save" method="post">
-    <label>Name : </label>
-    <input type="text" name="name">
+<form action="http://localhost:8080/student/save" method="post" th:object="${student}">
+    <label>Sid : </label>
+    <input type="text" th:field="*{sid}">
     <br><br>
-    <label>age : </label>
-    <input type="text" name="age">
+    <label>Name : </label>
+    <input type="text" th:field="*{sname}">
+    <br><br>
+    <label>Cid : </label>
+    <input type="text" th:field="*{cid}">
+
     <button type="submit">submit</button>
 </form>
 </body>
