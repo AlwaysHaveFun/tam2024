@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+<a href="http://localhost:8080/student/score/create" class="btn btn-success">tao diem moi</a>
+<br>
+<table class="table-success table">
+    <thead>
+    <tr>
+        <th scope="col">student id</th>
+        <th scope="col">student name</th>
+        <th scope="col">class name</th>
+        <th scope="col">xem diem</th>
+        <th scope="col">sua</th>
+        <th scope="col">xoa</th>
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <tr class="table-success" th:each="st : ${list}">
+        <td class="table-success" th:text="${st.sid}"></td>
+        <td class="table-success" th:text="${st.getSname()}"></td>
+        <td class="table-success" th:text="${st.getCname()}"></td>
+
+        <td class="table-success"><a th:href="@{http://localhost:8080/student/detail(id=${st.sid})}" class="btn btn-success">xem diem</a></td>
+        <td class="table-success"><a th:href="@{http://localhost:8080/student/update(id=${st.sid})}" class="btn btn-success">sua</a></td>
+        <td class="table-success"><a th:href="@{http://localhost:8080/student/delete(id=${st.sid})}" class="btn btn-success">xoa</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -9,11 +9,12 @@ import lombok.*;
 @AllArgsConstructor
 
 public class Score {
+    private int sid;
     private int scid;
-    private float score;
+    private int score;
     private int typeId;
     private int sjId;
     private String typeName;
     private String sjName;
-    private int sid;
+    private String sName;
 }

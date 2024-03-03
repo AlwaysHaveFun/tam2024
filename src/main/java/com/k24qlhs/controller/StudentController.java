@@ -52,7 +52,7 @@ public class StudentController {
     }
     @GetMapping("/score")
     public String scoreList(Model model){
-        ArrayList<Score> list = ScoreService.getList();
+        ArrayList<Score> list = ScoreService.getList(0);
         model.addAttribute("list",list);
         return "/score/list";
     }
@@ -69,10 +69,45 @@ public class StudentController {
         return "/score/scoreCreate";
     }
 
-    @PostMapping("/score/save")
-    public String saveSc(@ModelAttribute Score score, @RequestParam int sid) {
-        System.out.println(sid);
-        return "redirect:http://localhost:8080/student/create";
+
+    @GetMapping("/score/update")
+    public String updateScore(Model model,@RequestParam int id){
+        Score score = ScoreService.findScoreById(id);
+        model.addAttribute(score);
+        ArrayList<Student> list = StudentService.getList();
+        model.addAttribute("stlist",list);
+        ArrayList<TypeScore> typeScores = ScoreService.getListTypeScore();
+        model.addAttribute("tlist",typeScores);
+        ArrayList<Subject> slist = SubjectService.getList();
+        model.addAttribute("slist",slist);
+        System.out.println(id);
+
+        return "/score/update";
+    }
+    @PostMapping("/score/updateP")
+    public String scUpdate(@ModelAttribute Score score){
+        ScoreService.updateScore(score);
+        return "redirect:http://localhost:8080/student/score";
     }
 
+    @PostMapping("/score/save")
+    public String saveSc(@ModelAttribute Score score, @RequestParam int sid) {
+        int id = ScoreService.saveScore(score);
+        ScoreService.saveScoreDetail(id,sid);
+        return "redirect:http://localhost:8080/student/score";
+    }
+
+    @GetMapping("/list")
+    public String studentList(Model model) {
+        ArrayList<Student> list = StudentService.getList();
+        model.addAttribute("list",list);
+        return "/student/list";
+    }
+
+    @GetMapping("/detail")
+    public String studenDetail(Model model, @RequestParam int id) {
+        ArrayList<Score> list = ScoreService.getList(id);
+        model.addAttribute("list",list);
+        return "/score/list";
+    }
 }

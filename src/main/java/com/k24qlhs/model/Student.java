@@ -12,5 +12,6 @@ public class Student {
     private int sid;
     private String sname;
     private int cid;
+    private String cname;
 
 }

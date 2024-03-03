@@ -16,6 +16,8 @@
             <th scope="col">score</th>
             <th scope="col">loai diem</th>
             <th scope="col">mon</th>
+            <th scope="col">student id</th>
+            <th scope="col">student name</th>
             <th scope="col">xoa diem</th>
             <th scope="col"> sua diem</th>
         </tr>
@@ -26,7 +28,8 @@
             <td class="table-success" th:text="${sc.getScore()}"></td>
             <td class="table-success" th:text="${sc.getTypeName()}"></td>
             <td class="table-success" th:text="${sc.getSjName()}"></td>
-
+            <td class="table-success" th:text="${sc.getSid()}"></td>
+            <td class="table-success" th:text="${sc.getSName()}"></td>
             <td class="table-success"><a th:href="@{http://localhost:8080/student/score/update(id=${sc.scid})}" class="btn btn-success">update</a></td>
             <td class="table-success"><a th:href="@{http://localhost:8080/student/score/delete(id=${sc.scid})}" class="btn btn-success">delete</a></td>        </tr>
     </tbody>
