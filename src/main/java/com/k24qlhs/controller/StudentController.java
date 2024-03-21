@@ -5,8 +5,10 @@ import com.k24qlhs.model.Student;
 import com.k24qlhs.model.Subject;
 import com.k24qlhs.model.TypeScore;
 import com.k24qlhs.service.ScoreService;
+import com.k24qlhs.service.ScoreServiceInterface;
 import com.k24qlhs.service.StudentService;
 import com.k24qlhs.service.SubjectService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 @Controller
 @RequestMapping("/student")
 public class StudentController {
+    @Autowired
+    private ScoreServiceInterface scoreServiceInterface;
     @GetMapping
     public String home(Model model) {
         String msg = "Hello";
@@ -52,7 +56,7 @@ public class StudentController {
     }
     @GetMapping("/score")
     public String scoreList(Model model){
-        ArrayList<Score> list = ScoreService.getList(0);
+        ArrayList<Score> list = scoreServiceInterface.getList(0);
         model.addAttribute("list",list);
         return "/score/list";
     }
@@ -62,7 +66,7 @@ public class StudentController {
         model.addAttribute(score);
         ArrayList<Student> list = StudentService.getList();
         model.addAttribute("stlist",list);
-        ArrayList<TypeScore> typeScores = ScoreService.getListTypeScore();
+        ArrayList<TypeScore> typeScores = scoreServiceInterface.getListTypeScore();
         model.addAttribute("tlist",typeScores);
         ArrayList<Subject> slist = SubjectService.getList();
         model.addAttribute("slist",slist);
@@ -72,11 +76,11 @@ public class StudentController {
 
     @GetMapping("/score/update")
     public String updateScore(Model model,@RequestParam int id){
-        Score score = ScoreService.findScoreById(id);
+        Score score = scoreServiceInterface.findScoreById(id);
         model.addAttribute(score);
         ArrayList<Student> list = StudentService.getList();
         model.addAttribute("stlist",list);
-        ArrayList<TypeScore> typeScores = ScoreService.getListTypeScore();
+        ArrayList<TypeScore> typeScores = scoreServiceInterface.getListTypeScore();
         model.addAttribute("tlist",typeScores);
         ArrayList<Subject> slist = SubjectService.getList();
         model.addAttribute("slist",slist);
@@ -86,13 +90,13 @@ public class StudentController {
     }
     @PostMapping("/score/updateP")
     public String scUpdate(@ModelAttribute Score score){
-        ScoreService.updateScore(score);
+        scoreServiceInterface.updateScore(score);
         return "redirect:http://localhost:8080/student/score";
     }
 
     @PostMapping("/score/save")
     public String saveSc(@ModelAttribute Score score, @RequestParam int sid) {
-        int id = ScoreService.saveScore(score);
+        int id = scoreServiceInterface.saveScore(score);
         ScoreService.saveScoreDetail(id,sid);
         return "redirect:http://localhost:8080/student/score";
     }
@@ -106,7 +110,7 @@ public class StudentController {
 
     @GetMapping("/detail")
     public String studenDetail(Model model, @RequestParam int id) {
-        ArrayList<Score> list = ScoreService.getList(id);
+        ArrayList<Score> list = scoreServiceInterface.getList(id);
         model.addAttribute("list",list);
         return "/score/list";
     }
